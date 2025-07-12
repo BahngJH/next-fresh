@@ -1,6 +1,6 @@
 import { connectDB } from '@/util/database'
 import { ObjectId } from 'mongodb'
-import ModifyForm from '../ModifyForm'
+import BoardForm from '../BoardForm'
 
 export default async function Modify(props) {
     const client = await connectDB
@@ -20,7 +20,7 @@ export default async function Modify(props) {
     return (
       <div className="p-20">
         <h4>게시글 수정</h4>
-        <ModifyForm result={postData} />
+        <BoardForm mode="modify" post={postData} />
       </div>
     )
 }

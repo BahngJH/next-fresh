@@ -1,6 +1,7 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import BoardForm from '../modify/BoardForm'
 
 export default function Write() {
     const router = useRouter()
@@ -33,11 +34,7 @@ export default function Write() {
     return (
       <div className="p-20">
         <h4>새 게시글 작성</h4>
-        <form onSubmit={handleSubmit}>
-          <input name="title" placeholder="글제목"/>
-          <input name="content" placeholder="글내용"/>
-          <button type="submit">전송</button>
-        </form>
+        <BoardForm mode="create" />
       </div>
     )
   } 
