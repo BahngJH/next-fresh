@@ -46,33 +46,27 @@ import DetailLink from './DetailLink'
 export default async function List() {
     const db = (await connectDB).db('forum')
     const result = await db.collection('post').find().toArray()
-    console.log(result)
 
     return (
       <div className="list-bg">
         { result.map((item, i) => 
-            <>
-                <div className="list-item" key={item.id}>
-                    <Link href={`/detail/${item.id}`} key={item.id}>
-                        <h4>{item.title}</h4>
-                    </Link>
-                    <DetailLink id={item.id} />
-                    <p>{item.content}</p>
-                </div>
-            </>
+            <div className="list-item" key={item._id.toString()}>
+                <Link href={`/detail/${item._id.toString()}`}>
+                    <h4>{item.title}</h4>
+                </Link>
+                <DetailLink id={item._id.toString()} />
+                <p>{item.content}</p>
+                <p>ID: {item._id.toString()}</p>
+            </div>
         )}
-        <div className="list-item">
-          <h4>글제목</h4>
-          <p>1월 1일</p>
-        </div>
-        <div className="list-item">
-          <h4>글제목</h4>
-          <p>1월 1일</p>
-        </div>
-        <div className="list-item">
-          <h4>글제목</h4>
-          <p>1월 1일</p>
-        </div>
+        
+        {/* 게시글이 없을 때 */}
+        {result.length === 0 && (
+            <div className="list-item">
+                <h4>게시글이 없습니다</h4>
+                <p>첫 번째 게시글을 작성해보세요!</p>
+            </div>
+        )}
       </div>
     )
   } 
