@@ -40,28 +40,22 @@
 // }
 
 import { connectDB } from '@/util/database'
-import Link from 'next/link'
-import DetailLink from './DetailLink'
+import ListItem from './ListItem'
 
 export default async function List() {
     const db = (await connectDB).db('forum')
-    const result = await db.collection('post').find().toArray()
+    let posts = await db.collection('post').find().toArray()
+    
+    posts = posts.map(item => ({
+        ...item,
+        _id: item._id.toString()
+    }))
 
     return (
       <div className="list-bg">
-        { result.map((item, i) => 
-            <div className="list-item" key={item._id.toString()}>
-                <Link href={`/detail/${item._id.toString()}`}>
-                    <h4>{item.title}</h4>
-                </Link>
-                <DetailLink id={item._id.toString()} />
-                <p>{item.content}</p>
-                <p>ID: {item._id.toString()}</p>
-            </div>
-        )}
-        
-        {/* 게시글이 없을 때 */}
-        {result.length === 0 && (
+        <ListItem posts={posts} />
+
+        {posts.length === 0 && (
             <div className="list-item">
                 <h4>게시글이 없습니다</h4>
                 <p>첫 번째 게시글을 작성해보세요!</p>

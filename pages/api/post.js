@@ -38,5 +38,17 @@ export default async function handler(req, res) {
 
         const result = await db.collection('post').findOne({ _id: new ObjectId(id) })
         res.status(200).json(result)
+    } else if(req.method === 'DELETE') {
+        const client = await connectDB
+        const db = client.db('forum')
+
+        const { id } = req.query
+        console.log(id)
+
+        await db.collection('post').deleteOne({ _id: new ObjectId(id) })
+        res.status(200).json({
+            success: true,
+            message: '게시글이 삭제되었습니다'
+        })
     }
 }
