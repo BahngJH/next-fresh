@@ -1,6 +1,5 @@
 import Image from "next/image";
 // import 이미지 from '/public/food0.png';
-import 이미지 from '/public/food1.png';
 
 export default function List() {
     let products = ['tomato', 'pasta', 'coconut'];
@@ -13,7 +12,7 @@ export default function List() {
                     <div className="food" key={product}>
                         <h4>{product} $40</h4>
                         <img className="food-img" src={`/food${i}.png`} alt={product} />
-                        {/* <Image className="food-img" src={이미지}  */}
+                        {/* <Image className="food-img" src={이미지} width={500} height={500} /> */}
                     </div>
                 )
             })}
