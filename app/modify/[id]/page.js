@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import { connectDB } from '@/util/database'
 import { ObjectId } from 'mongodb'
 import ModifyForm from '../ModifyForm'
@@ -22,7 +21,6 @@ export default async function Modify(props) {
       <div className="p-20">
         <h4>게시글 수정</h4>
         <ModifyForm result={postData} />
-        <Link href="/list">목록으로</Link>
       </div>
     )
 }

@@ -27,8 +27,7 @@ export default async function Detail(props) {
           <h4>{result.title || '글제목 없음'}</h4>
           <p>{result.content || '글내용 없음'}</p>
           <p>ObjectId: {result._id.toString()}</p>
-          <Link href="/list" style={{color: 'white'}}>목록으로</Link><br/>
-          <Link href={`/modify/${params.id}`} style={{color: 'white'}}>수정</Link>
+          <Link href={`/modify/${params.id}`} style={{color: 'white'}}>수정하기</Link>
       </div>
         )
     } catch (error) {
