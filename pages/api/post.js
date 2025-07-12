@@ -1,4 +1,5 @@
 import { connectDB } from '@/util/database'
+import { ObjectId } from 'mongodb'
 
 export default async function handler(req, res) {
     if (req.method === 'POST') {
@@ -28,7 +29,14 @@ export default async function handler(req, res) {
             console.error('게시글 작성 오류:', error)
             res.status(500).json({ error: '서버 오류가 발생했습니다' })
         }
-    } else {
-        res.status(405).json({ error: 'POST 메서드만 허용됩니다' })
+    } else if(req.method === 'GET') {
+        const client = await connectDB
+        const db = client.db('forum')
+
+        const { id } = req.query
+        console.log(id)
+
+        const result = await db.collection('post').findOne({ _id: new ObjectId(id) })
+        res.status(200).json(result)
     }
 }

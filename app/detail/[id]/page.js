@@ -1,5 +1,6 @@
 import { connectDB } from '@/util/database'
 import { ObjectId } from 'mongodb'
+import Link from 'next/link'
 
 export default async function Detail(props) {
     const client = await connectDB
@@ -20,13 +21,15 @@ export default async function Detail(props) {
             )
         }
 
-        return (
-            <div>
-                <h4>상세페이지임</h4>
-                <h4>{result.title || '글제목 없음'}</h4>
-                <p>{result.content || '글내용 없음'}</p>
-                <p>ObjectId: {result._id.toString()}</p>
-            </div>
+    return (
+      <div>
+        <h4>상세페이지임</h4>
+          <h4>{result.title || '글제목 없음'}</h4>
+          <p>{result.content || '글내용 없음'}</p>
+          <p>ObjectId: {result._id.toString()}</p>
+          <Link href="/list" style={{color: 'white'}}>목록으로</Link><br/>
+          <Link href={`/modify/${params.id}`} style={{color: 'white'}}>수정</Link>
+      </div>
         )
     } catch (error) {
         console.error('게시글 조회 오류:', error)
@@ -34,7 +37,7 @@ export default async function Detail(props) {
             <div>
                 <h4>게시글 조회 중 오류가 발생했습니다</h4>
                 <p>잘못된 ID 형식입니다: {params.id}</p>
-            </div>
-        )
-    }
+      </div>
+    )
+  }
 }
