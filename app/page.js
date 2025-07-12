@@ -1,14 +1,13 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-import Link from "next/link";
+import { MongoClient } from "mongodb";
+import { connectDB } from '@/util/database'
 
-export default function Home() {
+export default async function Home() {
+  const client = await connectDB
+  const db = client.db('forum')
+  const result = await db.collection('post').find().toArray()
+  console.log(result)
 
   return (
-    <main>
-      
-      <h1 className="title">Programming Log</h1>
-      <p className="title-sub">by dev bahng</p>
-    </main>
+    <div>안녕?</div>
   );
 }
