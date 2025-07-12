@@ -6,11 +6,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head />
       <body>
-        <div className="navbar">
+        {/* <div className="navbar">
           <Link href="/">Home</Link>
           <Link href="/list">List</Link>
           <Link href="/cart">Cart</Link>
-        </div>
+        </div> */}
         {children}
       </body>
     </html>
