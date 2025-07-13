@@ -9,18 +9,15 @@ export default async function Detail(props) {
     
     // params를 먼저 await한 후 속성에 접근
     const params = await props.params
-    
-    try {
-        const result = await db.collection('post').findOne({ _id: new ObjectId(params.id) })
 
-        if (!result) {
-            return (
-                <div>
-                    <h4>게시글을 찾을 수 없습니다</h4>
-                    <p>ID: {params.id}</p>
-                </div>
-            )
-        }
+    let result = await db.collection('post').findOne({ _id: new ObjectId(params.id) })
+
+    if (result === null) {
+        return <div>
+            <h4>게시글을 찾을 수 없습니다</h4>
+            <p>ID: {params.id}</p>
+        </div>
+    }
 
     return (
       <div>
@@ -32,13 +29,4 @@ export default async function Detail(props) {
           <Comment parent={params.id} />
       </div>
     )
-    } catch (error) {
-        console.error('게시글 조회 오류:', error)
-        return (
-            <div>
-                <h4>게시글 조회 중 오류가 발생했습니다</h4>
-                <p>잘못된 ID 형식입니다: {params.id}</p>
-      </div>
-    )
-  }
 }
