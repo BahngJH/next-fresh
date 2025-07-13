@@ -1,7 +1,11 @@
 import { connectDB } from '@/util/database'
 import { ObjectId } from 'mongodb'
+import { getServerSession } from 'next-auth'
+import { authOptions } from './auth/[...nextauth]'
 
 export default async function handler(req, res) {
+    const session = await getServerSession(req, res, authOptions)
+
     if (req.method === 'POST') {
         try {
             const client = await connectDB
@@ -16,7 +20,8 @@ export default async function handler(req, res) {
             
             const result = await db.collection('post').insertOne({
                 title,
-                content
+                content,
+                author: session.user.email,
             })
             
             console.log('새 게시글 생성:', result)
