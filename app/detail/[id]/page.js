@@ -1,6 +1,7 @@
 import { connectDB } from '@/util/database'
 import { ObjectId } from 'mongodb'
 import Link from 'next/link'
+import Comment from './Comment'
 
 export default async function Detail(props) {
     const client = await connectDB
@@ -26,10 +27,11 @@ export default async function Detail(props) {
         <h4>상세페이지임</h4>
           <h4>{result.title || '글제목 없음'}</h4>
           <p>{result.content || '글내용 없음'}</p>
-          <p>ObjectId: {result._id.toString()}</p>
           <Link href={`/modify/${params.id}`} style={{color: 'white'}}>수정하기</Link>
+          <br/> <br/> <br/>
+          <Comment parent={params.id} />
       </div>
-        )
+    )
     } catch (error) {
         console.error('게시글 조회 오류:', error)
         return (
